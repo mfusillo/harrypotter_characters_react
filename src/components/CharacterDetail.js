@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
-function CharacterDetail(){
+function CharacterDetail({selectedCharacter}){
+  if(!selectedCharacter) return null;
   return(
-    <h2>This is the CharacterDetail</h2>
+    <Fragment>
+      <p>Name: {selectedCharacter.name}</p>
+      <p>House: {selectedCharacter.house}</p>
+      <p>Date of Birth: {selectedCharacter.dateOfBirth}</p>
+      <p>Ancestry: {selectedCharacter.ancestry}</p>
+    </Fragment>
   )
 }
 

@@ -12,12 +12,30 @@ class CharacterContainer extends Component {
     }
   }
 
+  componentDidMount(){
+    fetch('http://hp-api.herokuapp.com/api/characters')
+    .then(response => response.json())
+    .then(characters => this.setState({characters: characters}))
+    .catch(err => console.error(err))
+  }
+
+  handleCharacterSelected = (selectedCharacterName) => {
+    this.setState({selectedCharacterName: selectedCharacterName})
+  }
+
+  getSelectedCharacter = () => {
+    const foundCharacter = this.state.characters.find(character => {
+      return character.name === this.state.selectedCharacterName;
+    })
+    return foundCharacter;
+  }
+
   render(){
     return (
       <section>
         <h1>This is the CharacterContainer</h1>
-        <CharacterSelector />
-        <CharacterDetail />
+        <CharacterSelector characters={this.state.characters} onCharacterSelected={this.handleCharacterSelected} />
+        <CharacterDetail selectedCharacter={this.getSelectedCharacter()}/>
       </section>
     )
   }
